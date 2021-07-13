@@ -1,3 +1,3 @@
-# react-hooks-redux-registration-login-example
+# react-hooks + redux && Lumen
 
 React Hooks + Redux - User Registration and Login
