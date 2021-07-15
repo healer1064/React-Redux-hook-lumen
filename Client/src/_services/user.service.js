@@ -5,6 +5,7 @@ export const userService = {
     login,
     logout,
     register,
+    editProfile,
     getAll,
     getById,
     update,
@@ -33,6 +34,33 @@ function logout() {
     localStorage.removeItem('user');
 }
 
+function register(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    return fetch(`${config.apiUrl}/api/register`, requestOptions).then(handleResponse);
+}
+
+function editProfile(user) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    return fetch(`${config.apiUrl}/api/editProfile`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+
+            return user;
+        });
+}
+
 function getAll() {
     const requestOptions = {
         method: 'GET',
@@ -48,16 +76,6 @@ function getById(id) {
     };
 
     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-}
-
-function register(user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`${config.apiUrl}/api/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {

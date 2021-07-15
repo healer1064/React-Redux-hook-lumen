@@ -20,8 +20,15 @@ $router->group(['middleware' => 'cors'], function() use ($router)
     $router->group(['prefix' => 'api'], function () use ($router) {
         // Matches "/api/register
         $router->post('register', 'AuthController@register');
+
         // Matches "/api/login
         $router->post('login', 'AuthController@login');
+
+        // Matches "/api/users
+        $router->get('userList', 'UserController@allUsers');
+
+        // Matches "/api/editProfile"
+        $router->put('editProfile', 'UserController@editProfile');
 
         // Matches "/api/profile
         $router->get('profile', 'UserController@profile');
@@ -30,7 +37,5 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //get one user by id
         $router->get('users/{id}', 'UserController@singleUser');
 
-        // Matches "/api/users
-        $router->get('userList', 'UserController@allUsers');
     });
 });

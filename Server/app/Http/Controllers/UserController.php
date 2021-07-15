@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\User;
 
@@ -27,6 +28,37 @@ class UserController extends Controller
         return response()->json(['user' => Auth::user()], 200);
     }
 
+    public function editProfile(Request $request)
+    {
+        //validate incoming request 
+        $this->validate($request, [
+            'firstName' => 'required|string',
+            'lastName' => 'required|string'
+        ]);
+
+        try {
+           
+            $user =  Auth::user();
+            $user->firstName = $request->input('firstName');
+            $user->lastName = $request->input('lastName');
+
+            $user->save();
+            $token = $request->bearerToken();
+            
+            //return successful response
+            return response()->json([
+                'token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => Auth::factory()->getTTL() * 60,
+                'user_info' => $user
+            ], 201);
+
+        } catch (\Exception $e) {
+            //return error message
+            return response()->json(['message' => 'User Registration Failed!'], 409);
+        }
+    }
+
     /**
      * Get all User.
      *
@@ -34,7 +66,7 @@ class UserController extends Controller
      */
     public function allUsers()
     {
-         return response()->json(['users' =>  User::all()], 200);
+        return response()->json(['users' =>  User::all()], 200);
     }
 
     /**

@@ -9,7 +9,7 @@ function UsersListPage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user.user_info);
     const dispatch = useDispatch();
-    console.log(user);
+
     useEffect(() => {
         dispatch(userActions.getAll());
     }, []);

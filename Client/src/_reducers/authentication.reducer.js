@@ -19,6 +19,12 @@ export function authentication(state = initialState, action) {
             return {};
         case userConstants.LOGOUT:
             return {};
+        case userConstants.EDIT_PROFILE_REQUEST:
+            return {}
+        case userConstants.EDIT_PROFILE_SUCCESS:
+            return {
+                user: action.user
+            };
         default:
             return state
     }
