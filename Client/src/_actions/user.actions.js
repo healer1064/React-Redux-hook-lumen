@@ -9,6 +9,7 @@ export const userActions = {
     register,
     editProfile,
     getAll,
+    getConnectList,
     delete: _delete
 };
 
@@ -99,6 +100,22 @@ function getAll() {
     function request() { return { type: userConstants.GETALL_REQUEST } }
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function getConnectList(id) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.getConnectList(id)
+            .then(
+                connectList => dispatch(success(connectList)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: userConstants.GETCONNECTLIST_REQUEST } }
+    function success(connectList) { return { type: userConstants.GETCONNECTLIST_SUCCESS, connectList } }
+    function failure(error) { return { type: userConstants.GETCONNECTLIST_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

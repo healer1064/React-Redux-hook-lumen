@@ -33,6 +33,9 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         // Matches "/api/profile
         $router->get('profile', 'UserController@profile');
 
+        //get one user by id
+        $router->get('connectList/{id}', 'ConnectController@getConnects');
+
         // Matches "/api/user 
         //get one user by id
         $router->get('users/{id}', 'UserController@singleUser');

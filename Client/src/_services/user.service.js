@@ -7,6 +7,7 @@ export const userService = {
     register,
     editProfile,
     getAll,
+    getConnectList,
     getById,
     update,
     delete: _delete
@@ -67,6 +68,14 @@ function getAll() {
         headers: authHeader()
     };
     return fetch(`${config.apiUrl}/api/userList`, requestOptions).then(handleResponse);
+}
+
+function getConnectList(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${config.apiUrl}/api/connectList/${id}`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
