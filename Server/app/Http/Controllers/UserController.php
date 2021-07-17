@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use  App\User;
 
 class UserController extends Controller
@@ -64,9 +65,29 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function allUsers()
+    public function allUsers($id)
     {
-        return response()->json(['users' =>  User::all()], 200);
+        $usersWithoutMe = DB::table('users')->where('id', '<>', $id)->get();
+        $connectedUserIds = DB::select('SELECT secondId FROM connect WHERE firstId = ? UNION SELECT firstId FROM connect WHERE secondId = ?', [$id, $id]);
+        $users = [];
+        $idArr = [];
+        foreach($connectedUserIds as $connectedUserId) {
+            array_push($idArr, $connectedUserId->secondId);
+        }
+        foreach($usersWithoutMe as $user) {
+            if(in_array($user->id, $idArr)) {
+                $user->connect = 1;
+                array_push($users, $user);
+            }
+            else {
+                $user->connect = 0;
+                array_push($users, $user);
+            }
+        }
+        return response()->json(['users' => $users], 200);
+        
+        // return response()->json(['users' =>  User::all()], 200);
+
     }
 
     /**

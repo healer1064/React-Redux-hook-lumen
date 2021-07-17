@@ -25,7 +25,7 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         $router->post('login', 'AuthController@login');
 
         // Matches "/api/users
-        $router->get('userList', 'UserController@allUsers');
+        $router->get('userList/{id}', 'UserController@allUsers');
 
         // Matches "/api/editProfile"
         $router->put('editProfile', 'UserController@editProfile');
@@ -36,6 +36,9 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //get one user by id
         $router->get('connectList/{id}', 'ConnectController@getConnects');
 
+        //get 
+        $router->get('disconnect/{myId}/{otherId}', 'ConnectController@disconnect');
+        
         // Matches "/api/user 
         //get one user by id
         $router->get('users/{id}', 'UserController@singleUser');

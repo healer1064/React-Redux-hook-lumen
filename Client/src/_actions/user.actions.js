@@ -9,7 +9,8 @@ export const userActions = {
     register,
     editProfile,
     getAll,
-    getConnectList,
+    // getConnectList,
+    disconnect,
     delete: _delete
 };
 
@@ -86,11 +87,11 @@ function editProfile(newData) {
     function failure(error) { return { type: userConstants.EDIT_PROFILE_FAILURE, error } }
 }
 
-function getAll() {
+function getAll(id) {
     return dispatch => {
         dispatch(request());
 
-        userService.getAll()
+        userService.getAll(id)
             .then(
                 users => dispatch(success(users)),
                 error => dispatch(failure(error.toString()))
@@ -102,20 +103,44 @@ function getAll() {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-function getConnectList(id) {
+// function getConnectList(id) {
+//     return dispatch => {
+//         dispatch(request());
+
+//         userService.getConnectList(id)
+//             .then(
+//                 connectList => dispatch(success(connectList)),
+//                 error => dispatch(failure(error.toString()))
+//             );
+//     };
+
+//     function request() { return { type: userConstants.GETCONNECTLIST_REQUEST } }
+//     function success(connectList) { return { type: userConstants.GETCONNECTLIST_SUCCESS, connectList } }
+//     function failure(error) { return { type: userConstants.GETCONNECTLIST_FAILURE, error } }
+// }
+
+function disconnect(myId, otherId) {
     return dispatch => {
         dispatch(request());
 
-        userService.getConnectList(id)
+        userService.disconnect(myId, otherId)
             .then(
-                connectList => dispatch(success(connectList)),
-                error => dispatch(failure(error.toString()))
+                users => dispatch(success1()),
+                error => dispatch(failure1(error.toString()))
+            ).then(
+                userService.getAll(myId)
+                .then(
+                    users => dispatch(success2(users)),
+                    error => dispatch(failure2(error.toString()))
+                )
             );
     };
 
-    function request() { return { type: userConstants.GETCONNECTLIST_REQUEST } }
-    function success(connectList) { return { type: userConstants.GETCONNECTLIST_SUCCESS, connectList } }
-    function failure(error) { return { type: userConstants.GETCONNECTLIST_FAILURE, error } }
+    function request() { return { type: userConstants.DISCONNECT_REQUEST } }
+    function success1() { return { type: userConstants.DISCONNECT_SUCCESS } }
+    function failure1(error) { return { type: userConstants.DISCONNECT_FAILURE, error } }
+    function success2(users) { return { type: userConstants.GETALL_SUCCESS, users } }
+    function failure2(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

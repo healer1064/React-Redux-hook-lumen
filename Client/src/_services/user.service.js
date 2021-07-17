@@ -8,6 +8,7 @@ export const userService = {
     editProfile,
     getAll,
     getConnectList,
+    disconnect,
     getById,
     update,
     delete: _delete
@@ -62,12 +63,12 @@ function editProfile(user) {
         });
 }
 
-function getAll() {
+function getAll(id) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`${config.apiUrl}/api/userList`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/api/userList/${id}`, requestOptions).then(handleResponse);
 }
 
 function getConnectList(id) {
@@ -76,6 +77,14 @@ function getConnectList(id) {
         headers: authHeader()
     };
     return fetch(`${config.apiUrl}/api/connectList/${id}`, requestOptions).then(handleResponse);
+}
+
+function disconnect(myId, otherId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${config.apiUrl}/api/disconnect/${myId}/${otherId}`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {

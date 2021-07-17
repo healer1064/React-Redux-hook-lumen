@@ -29,13 +29,24 @@ class ConnectController extends Controller
                 array_push($connectList, $connect->secondId);
             }
             foreach ($connect2 as $connect) {
-                array_push($connectList, $connect->secondId);
+                array_push($connectList, $connect->firstId);
             }
             return response()->json(['connectList' => $connectList], 200);
 
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'user not found!'], 404);
+            return response()->json(['message' => 'connect not found!'], 404);
+        }
+    }
+
+    public function disconnect($myId, $otherId) {
+        try {
+            DB::statement('delete from connect where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $otherId, $otherId, $myId]);
+            return response()->json(['message' => 'success to disconnect'], 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'fail to disconnect'], 404);
         }
     }
 
