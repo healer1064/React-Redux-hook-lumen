@@ -9,8 +9,8 @@ export const userActions = {
     register,
     editProfile,
     getAll,
-    // getConnectList,
     disconnect,
+    connect,
     delete: _delete
 };
 
@@ -103,22 +103,6 @@ function getAll(id) {
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
-// function getConnectList(id) {
-//     return dispatch => {
-//         dispatch(request());
-
-//         userService.getConnectList(id)
-//             .then(
-//                 connectList => dispatch(success(connectList)),
-//                 error => dispatch(failure(error.toString()))
-//             );
-//     };
-
-//     function request() { return { type: userConstants.GETCONNECTLIST_REQUEST } }
-//     function success(connectList) { return { type: userConstants.GETCONNECTLIST_SUCCESS, connectList } }
-//     function failure(error) { return { type: userConstants.GETCONNECTLIST_FAILURE, error } }
-// }
-
 function disconnect(myId, otherId) {
     return dispatch => {
         dispatch(request());
@@ -139,6 +123,30 @@ function disconnect(myId, otherId) {
     function request() { return { type: userConstants.DISCONNECT_REQUEST } }
     function success1() { return { type: userConstants.DISCONNECT_SUCCESS } }
     function failure1(error) { return { type: userConstants.DISCONNECT_FAILURE, error } }
+    function success2(users) { return { type: userConstants.GETALL_SUCCESS, users } }
+    function failure2(error) { return { type: userConstants.GETALL_FAILURE, error } }
+}
+
+function connect(myId, otherId) {
+    return dispatch => {
+        dispatch(request());
+
+        userService.connect(myId, otherId)
+            .then(
+                users => dispatch(success1()),
+                error => dispatch(failure1(error.toString()))
+            ).then(
+                userService.getAll(myId)
+                .then(
+                    users => dispatch(success2(users)),
+                    error => dispatch(failure2(error.toString()))
+                )
+            );
+    };
+
+    function request() { return { type: userConstants.CONNECT_REQUEST } }
+    function success1() { return { type: userConstants.CONNECT_SUCCESS } }
+    function failure1(error) { return { type: userConstants.CONNECT_FAILURE, error } }
     function success2(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure2(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }

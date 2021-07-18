@@ -13,20 +13,7 @@ export function users(state = {}, action) {
         case userConstants.GETALL_FAILURE:
             return {
                 error: action.error
-            };
-        case userConstants.DISCONNECT_REQUEST:
-            return {
-                loading: true
-            };
-        case userConstants.DISCONNECT_SUCCESS:
-            return {
-                
-            };
-        case userConstants.DISCONNECT_FAILURE:
-            return {
-                error: action.error
-            };
-            
+            };  
         case userConstants.DELETE_REQUEST:
             // add 'deleting:true' property to user being deleted
             return {

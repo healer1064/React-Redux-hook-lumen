@@ -50,6 +50,17 @@ class ConnectController extends Controller
         }
     }
 
+    public function connect($myId, $otherId) {
+        try {
+            DB::insert('insert into connect (firstId, secondId, created_at, updated_at) values (?, ?, NOW(), NOW())', [$myId, $otherId]);
+            return response()->json(['message' => 'success to connect'], 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'fail to connect'], 404);
+        }
+    }
+
     /**
      * Get the authenticated User.
      *

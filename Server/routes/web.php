@@ -36,8 +36,11 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //get one user by id
         $router->get('connectList/{id}', 'ConnectController@getConnects');
 
-        //get 
+        //disconnect other from me and send users' data
         $router->get('disconnect/{myId}/{otherId}', 'ConnectController@disconnect');
+
+        //connect other from me and send users' data
+        $router->get('connect/{myId}/{otherId}', 'ConnectController@connect');
         
         // Matches "/api/user 
         //get one user by id

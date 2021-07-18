@@ -11,10 +11,7 @@ function UsersListPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // getting all users of this site
-        // user.id && dispatch(userActions.getAll(user.id));
-        // getting id array of all members who connected with me.
-        // dispatch(userActions.getConnectList(user.id)); 
+        // getting all users on this site
         dispatch(userActions.getAll(user.id));
     }, []);
 
@@ -22,6 +19,12 @@ function UsersListPage() {
         //send message to server with parameter (myId, otherId)
         dispatch(userActions.disconnect(user.id, id));
     }
+
+    function handleConnect(id) {
+        //send message to server with parameter (myId, otherId)
+        dispatch(userActions.connect(user.id, id));
+    }
+    
 
     // function handleDeleteUser(id) {
     //     dispatch(userActions.delete(id));
@@ -46,7 +49,7 @@ function UsersListPage() {
                                         </>
                                     ): (
                                         <>
-                                            <button className="btn btn-outline-primary btn-block">connect</button>
+                                            <button className="btn btn-outline-primary btn-block" onClick={()=>handleConnect(user.id)}>connect</button>
                                             <button className="btn btn-block" disabled>scheduling</button>
                                         </>
                                     )}
