@@ -45,7 +45,14 @@ function UsersListPage() {
                                     {user.connect === 1? (
                                         <>
                                             <button className="btn btn-outline-primary btn-block" onClick={()=>handleDisconnect(user.id)}>disconnect</button>
-                                            <button className="btn btn-outline-primary btn-block">scheduling</button>
+                                            <button className="btn btn-outline-primary btn-block">
+                                                <Link to={
+                                                {     
+                                                    pathname: '/callSchedule',
+                                                    user: user
+                                                }
+                                                }>scheduling</Link>
+                                            </button>
                                         </>
                                     ): (
                                         <>

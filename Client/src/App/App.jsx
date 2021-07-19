@@ -10,6 +10,7 @@ import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { UsersListPage } from '../UsersListPage';
 import { EditProfilePage } from '../EditProfilePage';
+import { CallSchedulePage } from '../CallSchedulePage';
 
 function App() {
     const alert = useSelector(state => state.alert);
@@ -34,7 +35,7 @@ function App() {
                             <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/usersList" component={UsersListPage} />
                             <Route path="/editProfile" component={EditProfilePage} />
-                            <Route path="/login" component={LoginPage} />
+                            <Route path="/callSchedule" component={CallSchedulePage} />
                             <Route path="/login" component={LoginPage} />
                             <Route path="/register" component={RegisterPage} />
                             <Redirect from="*" to="/" />

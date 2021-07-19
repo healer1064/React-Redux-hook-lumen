@@ -137,10 +137,10 @@ function connect(myId, otherId) {
                 error => dispatch(failure1(error.toString()))
             ).then(
                 userService.getAll(myId)
-                .then(
-                    users => dispatch(success2(users)),
-                    error => dispatch(failure2(error.toString()))
-                )
+                    .then(
+                        users => dispatch(success2(users)),
+                        error => dispatch(failure2(error.toString()))
+                    )
             );
     };
 

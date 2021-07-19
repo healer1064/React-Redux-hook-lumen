@@ -30,11 +30,14 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         // Matches "/api/editProfile"
         $router->put('editProfile', 'UserController@editProfile');
 
+        //get one user by id
+        // $router->get('users/{id}', 'UserController@singleUser');
+
         // Matches "/api/profile
-        $router->get('profile', 'UserController@profile');
+        // $router->get('profile', 'UserController@profile');
 
         //get one user by id
-        $router->get('connectList/{id}', 'ConnectController@getConnects');
+        // $router->get('connectList/{id}', 'ConnectController@getConnects');
 
         //disconnect other from me and send users' data
         $router->get('disconnect/{myId}/{otherId}', 'ConnectController@disconnect');
@@ -42,9 +45,9 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //connect other from me and send users' data
         $router->get('connect/{myId}/{otherId}', 'ConnectController@connect');
         
-        // Matches "/api/user 
-        //get one user by id
-        $router->get('users/{id}', 'UserController@singleUser');
+        //get all schedules between I and partner
+        $router->get('scheduleList/{myId}/{partnerId}', 'ScheduleController@allSchedules');
+        
 
     });
 });
