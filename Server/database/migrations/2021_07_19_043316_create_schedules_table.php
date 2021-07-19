@@ -17,7 +17,7 @@ class CreateSchedulesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('firstId');
             $table->integer('secondId');
-            $table->string('meetingTime');
+            $table->string('meetTime');
             $table->string('title');
             $table->string('description');
             $table->timestamps();

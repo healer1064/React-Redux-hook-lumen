@@ -3,7 +3,8 @@ import { authHeader } from '../_helpers';
 
 export const scheduleService = {
     getSchedules,
-    getById,
+    saveSchedules,
+    cancelSchedule,
     update,
 };
 
@@ -15,13 +16,22 @@ function getSchedules(myId, partnerId) {
     return fetch(`${config.apiUrl}/api/scheduleList/${myId}/${partnerId}`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
+function saveSchedules(newSchedule) {
     const requestOptions = {
-        method: 'GET',
+        method: 'POST',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(newSchedule)
+    };
+    return fetch(`${config.apiUrl}/api/saveSchedule`, requestOptions).then(handleResponse);
+}
+
+function cancelSchedule(id) {
+    const requestOptions = {
+        method: 'DELETE',
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/api/schedule/${id}`, requestOptions).then(handleResponse);
 }
 
 function update(user) {

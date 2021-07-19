@@ -48,6 +48,11 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //get all schedules between I and partner
         $router->get('scheduleList/{myId}/{partnerId}', 'ScheduleController@allSchedules');
         
+        // Matches "/api/saveSchedule
+        $router->post('saveSchedule', 'ScheduleController@saveSchedule');
 
+        //get one user by id
+        $router->delete('schedule/{id}', 'ScheduleController@cancelSchedule');
+        
     });
 });
