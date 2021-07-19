@@ -1,14 +1,14 @@
 import React, { useEffect,useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {Modal, Container, Row, Col, Button, } from 'react-bootstrap'
+import {Modal, Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap'
+import DatePicker from "react-datepicker";
 
 import { scheduleActions } from '../_actions';
 import { Header } from '../_components/Header';
-// import "react-datepicker/dist/react-datepicker.css";
+
 
 function CallSchedulePage() {
-    // const users = useSelector(state => state.users);
     const schedule = useSelector(state=> state.schedule);
     const user = useSelector(state => state.authentication.user.user_info);
     const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function CallSchedulePage() {
 }
 
 function MydModalWithGrid(props) {
-    // var DateTimeField = require('react-bootstrap-datetimepicker');
+    const [meetTime, setMeetTime] = useState(new Date());
 
     return (
       <Modal 
@@ -88,32 +88,43 @@ function MydModalWithGrid(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="show-grid">
-          <Container>
-            {/* <Row>
-                <DateTimeField
-                    // dateTime={date}
-                    // format={format}
-                    // inputFormat={inputFormat}
-                    // onChange={this.handleChange}
-                    // viewMode={mode}
-                />
-            </Row> */}
-  
-            <Row>
-              <Col xs={6} md={4}>
-                .col-xs-6 .col-md-4
-              </Col>
-              <Col xs={6} md={4}>
-                .col-xs-6 .col-md-4
-              </Col>
-              <Col xs={6} md={4}>
-                .col-xs-6 .col-md-4
-              </Col>
-            </Row>
-          </Container>
+            <Container>
+                <Row>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text>Select Time</InputGroup.Text>
+                        <div className="m-auto">
+                        <DatePicker 
+                            selected={meetTime} 
+                            onChange={date => setMeetTime(date)}
+                            showTimeSelect
+                            dateFormat="Pp"
+                        />
+                        </div>
+                    </InputGroup>
+                </Row>
+                    
+                <Row>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="basic-addon1">Title</InputGroup.Text>
+                        <FormControl
+                            placeholder="Title"
+                            aria-label="Title"
+                            aria-describedby="basic-addon1"
+                        />
+                    </InputGroup>
+                </Row>
+
+                <Row>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text>Description</InputGroup.Text>
+                        <FormControl as="textarea" aria-label="withDescription" />
+                    </InputGroup>
+                </Row>
+            </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+            <Button variant="primary">Save</Button>
+            <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

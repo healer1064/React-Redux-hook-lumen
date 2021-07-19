@@ -10,7 +10,7 @@ function HomePage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(userActions.getAll(user.id));
+        // dispatch(userActions.getAll(user.id));
     }, []);
 
     return (
