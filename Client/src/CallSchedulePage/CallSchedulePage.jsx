@@ -20,6 +20,7 @@ function CallSchedulePage() {
     
     if(partner === undefined || !partner.firstName) {
         history.push('/home');
+        return;
     }
 
     useEffect(() => {
@@ -51,7 +52,7 @@ function CallSchedulePage() {
                     {schedule.scheduleList.map((schedule, index) => 
                           <li key={schedule.id} className="list-group-item list-group-item-dark">
                             <div className="row">
-                                <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">{schedule.meetTime}</div>
+                                <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">{new Date(schedule.meetTime).toLocaleString()}</div>
                                 <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">
                                     <p><b>{schedule.title}</b></p>
                                     <p>{schedule.description}</p>
@@ -167,11 +168,15 @@ function CreateScheduleModal(props) {
 function UpdateScheduleModal(props) {
     const dispatch = useDispatch();
     const { schedule } = props;
-    const [ elements, setElements ] = useState(props.schedule);
-    const [ aaa, setAaa] = useState(props.schedule);
+
+    const [ elements, setElements ] = useState({});
     const [ meetTime, setMeetTime ] = useState(new Date());
 
-    
+    useEffect(() => {
+        setElements(schedule)
+        setMeetTime(schedule.meetTime)
+    }, [schedule]);
+
     function handleChange(e) {
         const { name, value } = e.target;
         setElements(elements => ({ ...elements, [name]: value }));
@@ -179,12 +184,10 @@ function UpdateScheduleModal(props) {
 
     function handleUpdate() {
         //send message to server with parameter (myId, otherId)
-        console.log(props, elements, schedule, aaa);
-        // console.log('title', elements.title);
-        // console.log('description', elements.description);
+        console.log(elements);
 
-        // dispatch(scheduleActions.updateSchedule( props.schedule.id, meetTime, elements.title, elements.description));
-        // props.onHide();
+        dispatch(scheduleActions.updateSchedule( elements.id, meetTime, elements.title, elements.description));
+        props.onHide();
     }
 
     return (
@@ -206,10 +209,9 @@ function UpdateScheduleModal(props) {
                         <InputGroup.Text>Time</InputGroup.Text>
                         <div className="m-auto">
                         <DatePicker 
-                            {...props.schedule}
-                            selected={meetTime}
-                            // defaultValue = {props.schedule.meetTime ? new Date( props.schedule.meetTime ) : new Date()}
+                            selected={ meetTime ? new Date(meetTime) : new Date()}
                             onChange={date => setMeetTime(date)}
+                            name = 'meetTime'
                             showTimeSelect
                             dateFormat="Pp"
                         />
@@ -224,8 +226,7 @@ function UpdateScheduleModal(props) {
                             placeholder="Title"
                             aria-label="Title"
                             aria-describedby="basic-addon1"
-                            defaultValue={schedule.title}
-                            value = {elements.title}
+                            value = {elements ? elements.title : ''}
                             name = 'title'
                             onChange = {handleChange}
                         />
@@ -238,8 +239,7 @@ function UpdateScheduleModal(props) {
                         <FormControl 
                             as="textarea" 
                             aria-label="withDescription" 
-                            defaultValue={schedule.description}
-                            value = {elements.description}
+                            value = {elements ? elements.description : ''}
                             name = 'description'
                             onChange = {handleChange}
                         />
@@ -255,5 +255,15 @@ function UpdateScheduleModal(props) {
     );
 }
 
+function convertUTCDateToLocalDate(date_string) {
+    var date = new Date(date_string);
+    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+    return newDate.toLocaleString();   
+}
 
 export { CallSchedulePage };
