@@ -5,7 +5,7 @@ export const scheduleService = {
     getSchedules,
     saveSchedules,
     cancelSchedule,
-    update,
+    updateSchedule
 };
 
 function getSchedules(myId, partnerId) {
@@ -22,7 +22,7 @@ function saveSchedules(newSchedule) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify(newSchedule)
     };
-    return fetch(`${config.apiUrl}/api/saveSchedule`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/api/schedule`, requestOptions).then(handleResponse);
 }
 
 function cancelSchedule(id) {
@@ -34,14 +34,13 @@ function cancelSchedule(id) {
     return fetch(`${config.apiUrl}/api/schedule/${id}`, requestOptions).then(handleResponse);
 }
 
-function update(user) {
+function updateSchedule(schedule) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify(schedule)
     };
-
-    return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}/api/schedule/${schedule.id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -51,7 +50,6 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                logout();
                 location.reload(true);
             }
 

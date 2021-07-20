@@ -4,7 +4,8 @@ import { scheduleService } from '../_services';
 export const scheduleActions = {
     getSchedules,
     saveSchedule,
-    cancelSchedule
+    cancelSchedule,
+    updateSchedule
 };
 
 function getSchedules(myId, partnerId) {
@@ -59,4 +60,25 @@ function cancelSchedule(id) {
     function request(id) { return { type: scheduleConstants.DELETE_REQUEST, id } }
     function success(scheduleList) { return { type: scheduleConstants.DELETE_SUCCESS, scheduleList } }
     function failure(id, error) { return { type: scheduleConstants.DELETE_FAILURE, id, error } }
+}
+
+function updateSchedule(id, meetTime, title, description) {
+    return dispatch => {
+        dispatch(request());
+        const Schedule = {
+            id: id,
+            meetTime: meetTime,
+            title: title,
+            description: description
+        }
+        scheduleService.updateSchedule(Schedule)
+            .then(
+                scheduleList => dispatch(success(scheduleList)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: scheduleConstants.UPDATESCHEDULE_REQUEST } }
+    function success(scheduleList) { return { type: scheduleConstants.UPDATESCHEDULE_SUCCESS, scheduleList } }
+    function failure(error) { return { type: scheduleConstants.UPDATESCHEDULE_FAILURE, error } }
 }

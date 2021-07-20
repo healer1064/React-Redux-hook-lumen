@@ -37,7 +37,18 @@ export function schedule(state = {}, action) {
             return {
                 id: action.id,
                 error: action.error
-            }; 
+            };
+        case scheduleConstants.UPDATESCHEDULE_REQUEST:
+            return {
+            };
+        case scheduleConstants.UPDATESCHEDULE_SUCCESS:
+            return {
+                scheduleList: action.scheduleList.scheduleList
+            };
+        case scheduleConstants.UPDATESCHEDULE_FAILURE:
+            return {
+                error: action.error
+            };
         default:
             return state
     }
