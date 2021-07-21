@@ -11,9 +11,11 @@ function UsersListPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // getting all users on this site
-        dispatch(userActions.getAll(user.id));
-    }, []);
+        const interval = setInterval(() => {
+            dispatch(userActions.getAll(user.id));
+        }, 1000);
+        return () => clearInterval(interval);
+      }, [users]);
 
     function handleDisconnect(id) {
         //send message to server with parameter (myId, otherId)
@@ -25,10 +27,6 @@ function UsersListPage() {
         dispatch(userActions.connect(user.id, id));
     }
     
-
-    // function handleDeleteUser(id) {
-    //     dispatch(userActions.delete(id));
-    // }
     return (
         <div className="col-lg-12 offset-lg-0">
             <Header/>

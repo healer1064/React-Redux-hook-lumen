@@ -89,7 +89,7 @@ function editProfile(newData) {
 
 function getAll(id) {
     return dispatch => {
-        dispatch(request());
+        // dispatch(request());
 
         userService.getAll(id)
             .then(

@@ -24,9 +24,11 @@ function CallSchedulePage() {
     }
 
     useEffect(() => {
-        // getting all schedules between myId and partnerId
-        dispatch(scheduleActions.getSchedules(user.id, partner.id));
-    }, []);
+        const interval = setInterval(() => {
+            dispatch(scheduleActions.getSchedules(user.id, partner.id));
+        }, 1000);
+        return () => clearInterval(interval);
+      }, [schedule]);
 
     const [createModalShow, setCreateModalShow] = useState(false);
     const [updateModalShow, setUpdateModalShow] = useState(false);
@@ -253,17 +255,6 @@ function UpdateScheduleModal(props) {
         </Modal.Footer>
       </Modal>
     );
-}
-
-function convertUTCDateToLocalDate(date_string) {
-    var date = new Date(date_string);
-    var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
-
-    var offset = date.getTimezoneOffset() / 60;
-    var hours = date.getHours();
-
-    newDate.setHours(hours - offset);
-    return newDate.toLocaleString();   
 }
 
 export { CallSchedulePage };
