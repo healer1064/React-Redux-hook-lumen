@@ -9,6 +9,7 @@ import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { UsersListPage } from '../UsersListPage';
+import { SchedulesListPage } from '../SchedulesListPage';
 import { EditProfilePage } from '../EditProfilePage';
 import { CallSchedulePage } from '../CallSchedulePage';
 
@@ -34,6 +35,7 @@ function App() {
                         <Switch>
                             <PrivateRoute exact path="/" component={HomePage} />
                             <Route path="/usersList" component={UsersListPage} />
+                            <Route path="/schedulesList" component={SchedulesListPage} />
                             <Route path="/editProfile" component={EditProfilePage} />
                             <Route path="/callSchedule" component={CallSchedulePage} />
                             <Route path="/login" component={LoginPage} />

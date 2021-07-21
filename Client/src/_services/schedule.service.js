@@ -3,6 +3,7 @@ import { authHeader } from '../_helpers';
 
 export const scheduleService = {
     getSchedules,
+    getAllSchedules,
     saveSchedules,
     cancelSchedule,
     updateSchedule
@@ -14,6 +15,14 @@ function getSchedules(myId, partnerId) {
         headers: authHeader()
     };
     return fetch(`${config.apiUrl}/api/scheduleList/${myId}/${partnerId}`, requestOptions).then(handleResponse);
+}
+
+function getAllSchedules(myId) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${config.apiUrl}/api/allScheduleList/${myId}`, requestOptions).then(handleResponse);
 }
 
 function saveSchedules(newSchedule) {

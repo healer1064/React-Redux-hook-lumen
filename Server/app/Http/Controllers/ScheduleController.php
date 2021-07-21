@@ -19,11 +19,27 @@ class ScheduleController extends Controller
         $this->middleware('auth');
     }
 
-    public function allSchedules($myId, $partnerId) {
+    public function partnerSchedules($myId, $partnerId) {
         
         try {
             $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
             
+            return response()->json(['scheduleList' => $scheduleList], 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'schedules not found!'], 404);
+        }
+    }
+
+    public function allSchedules($myId) {
+        
+        try {
+            // $scheduleList = DB::select('select * from schedules where firstId = ? or secondId = ?', [$myId, $myId]);
+            // $scheduleList = Schedule::where('firstId', $myId)->orwhere('secondId', $myId)->get();
+            $scheduleList1 = DB::select('select schedules.*, users.lastName as lastName, users.firstName as firstName from schedules join users on schedules.secondId = users.id where firstId = ?', [$myId]);
+            $scheduleList2 = DB::select('select schedules.*, users.lastName as lastName, users.firstName as firstName from schedules join users on schedules.firstId = users.id where secondId = ?', [$myId]);
+            $scheduleList = $scheduleList1 + $scheduleList2;
             return response()->json(['scheduleList' => $scheduleList], 200);
 
         } catch (\Exception $e) {
@@ -98,9 +114,6 @@ class ScheduleController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
         ]);
-
-        // echo "-------------id";
-        // echo $id;
 
         try {
            

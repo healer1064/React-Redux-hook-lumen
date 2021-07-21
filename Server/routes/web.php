@@ -30,15 +30,6 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         // Matches "/api/editProfile"
         $router->put('editProfile', 'UserController@editProfile');
 
-        //get one user by id
-        // $router->get('users/{id}', 'UserController@singleUser');
-
-        // Matches "/api/profile
-        // $router->get('profile', 'UserController@profile');
-
-        //get one user by id
-        // $router->get('connectList/{id}', 'ConnectController@getConnects');
-
         //disconnect other from me and send users' data
         $router->get('disconnect/{myId}/{otherId}', 'ConnectController@disconnect');
 
@@ -46,8 +37,11 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         $router->get('connect/{myId}/{otherId}', 'ConnectController@connect');
         
         //get all schedules between I and partner
-        $router->get('scheduleList/{myId}/{partnerId}', 'ScheduleController@allSchedules');
+        $router->get('scheduleList/{myId}/{partnerId}', 'ScheduleController@partnerSchedules');
         
+        //get all schedules between I and others
+        $router->get('allScheduleList/{myId}', 'ScheduleController@allSchedules');
+
         // Matches "/api/saveSchedule
         $router->post('schedule', 'ScheduleController@saveSchedule');
 

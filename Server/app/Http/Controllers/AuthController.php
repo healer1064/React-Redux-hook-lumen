@@ -53,7 +53,7 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-          //validate incoming request 
+        //validate incoming request 
         $this->validate($request, [
             'email' => 'required|string',
             'password' => 'required|string',
@@ -68,5 +68,4 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    
 }

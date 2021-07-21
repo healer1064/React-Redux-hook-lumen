@@ -11,7 +11,7 @@ export const userActions = {
     getAll,
     disconnect,
     connect,
-    delete: _delete
+    delete: _delete // I didn't implement this function on meetup website.
 };
 
 function login(email, password, from) {
@@ -89,7 +89,6 @@ function editProfile(newData) {
 
 function getAll(id) {
     return dispatch => {
-        // dispatch(request());
 
         userService.getAll(id)
             .then(
@@ -98,7 +97,6 @@ function getAll(id) {
             );
     };
 
-    function request() { return { type: userConstants.GETALL_REQUEST } }
     function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
     function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 import { Header } from '../_components/Header';
+import { history } from '../_helpers';
 
 function UsersListPage() {
     const users = useSelector(state => state.users);
@@ -11,12 +12,14 @@ function UsersListPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(users.error === 'Unauthorized') //if token is expaired, log out.
+            history.push('/logout');
         const interval = setInterval(() => {
             dispatch(userActions.getAll(user.id));
         }, 1000);
         return () => clearInterval(interval);
-      }, [users]);
-
+    }, [users]);
+    
     function handleDisconnect(id) {
         //send message to server with parameter (myId, otherId)
         dispatch(userActions.disconnect(user.id, id));

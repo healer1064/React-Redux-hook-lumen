@@ -2,10 +2,11 @@ import { scheduleConstants } from '../_constants';
 import { scheduleService } from '../_services';
 
 export const scheduleActions = {
-    getSchedules,
-    saveSchedule,
-    cancelSchedule,
-    updateSchedule
+    getSchedules, // getting all schedules between I and selected partner.
+    getAllSchedules, // getting all schedules between I and all partner.
+    saveSchedule, // creating one schedules between I and selected partner.
+    cancelSchedule, // deleting one schedules between I and selected partner.
+    updateSchedule // updating one schedules between I and selected partner.
 };
 
 function getSchedules(myId, partnerId) {
@@ -22,9 +23,23 @@ function getSchedules(myId, partnerId) {
     function failure(error) { return { type: scheduleConstants.GETSCHEDULE_FAILURE, error } }
 }
 
+function getAllSchedules(myId) {
+    return dispatch => {
+
+        scheduleService.getAllSchedules(myId)
+            .then(
+                scheduleList => dispatch(success(scheduleList)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function success(scheduleList) { return { type: scheduleConstants.GETSCHEDULE_SUCCESS, scheduleList } }
+    function failure(error) { return { type: scheduleConstants.GETSCHEDULE_FAILURE, error } }
+}
+
 function saveSchedule(myId, partnerId, meetTime, title, description) {
     return dispatch => {
-        dispatch(request());
+
         const newSchedule = {
             myId: myId,
             partnerId: partnerId,
@@ -39,14 +54,12 @@ function saveSchedule(myId, partnerId, meetTime, title, description) {
             );
     };
 
-    function request() { return { type: scheduleConstants.SAVESCHEDULE_REQUEST } }
     function success(scheduleList) { return { type: scheduleConstants.SAVESCHEDULE_SUCCESS, scheduleList } }
     function failure(error) { return { type: scheduleConstants.SAVESCHEDULE_FAILURE, error } }
 }
 
 function cancelSchedule(id) {
     return dispatch => {
-        dispatch(request(id));
 
         scheduleService.cancelSchedule(id)
             .then(
@@ -55,14 +68,13 @@ function cancelSchedule(id) {
             );
     };
 
-    function request(id) { return { type: scheduleConstants.DELETE_REQUEST, id } }
     function success(scheduleList) { return { type: scheduleConstants.DELETE_SUCCESS, scheduleList } }
     function failure(id, error) { return { type: scheduleConstants.DELETE_FAILURE, id, error } }
 }
 
 function updateSchedule(id, meetTime, title, description) {
     return dispatch => {
-        dispatch(request());
+
         const Schedule = {
             id: id,
             meetTime: meetTime,
@@ -76,7 +88,6 @@ function updateSchedule(id, meetTime, title, description) {
             );
     };
 
-    function request() { return { type: scheduleConstants.UPDATESCHEDULE_REQUEST } }
     function success(scheduleList) { return { type: scheduleConstants.UPDATESCHEDULE_SUCCESS, scheduleList } }
     function failure(error) { return { type: scheduleConstants.UPDATESCHEDULE_FAILURE, error } }
 }
