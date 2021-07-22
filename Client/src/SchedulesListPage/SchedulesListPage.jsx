@@ -1,12 +1,9 @@
 import React, { useEffect,useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {Modal, Container, Row, Button, InputGroup, FormControl, Form } from 'react-bootstrap'
+import {Modal, Container, Row, Button, InputGroup, FormControl } from 'react-bootstrap'
 import DatePicker from "react-datepicker";
-
 import { scheduleActions, userActions } from '../_actions';
 import { Header } from '../_components/Header';
-import { history } from '../_helpers';
 
 function SchedulesListPage() {
     const schedule = useSelector(state=> state.schedule);
@@ -15,13 +12,17 @@ function SchedulesListPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(users.error === 'Unauthorized') //if token is expaired, log out.
+            history.push('/logout');
         const interval = setInterval(() => {
             dispatch(userActions.getAll(user.id));
             dispatch(scheduleActions.getAllSchedules(user.id));
         }, 1000);
+        // It use to get users and all schedules in every 1 second. 
+        // So you can see updated informatin in every 1S.
         return () => clearInterval(interval);
     }, [schedule]);
-
+    
     const [createModalShow, setCreateModalShow] = useState(false);
     const [updateModalShow, setUpdateModalShow] = useState(false);
     const [tempSchedule, setTempSchedule] = useState({});
@@ -89,7 +90,7 @@ function CreateScheduleModal(props) {
     const { title, description } = inputs;
     const { users } = props;
     
-    const options = users && users.items && users.items.map((element, key) => {
+    const options = users && users.items && users.items.map((element) => {
         if(element.connect === 1)
             return <option value={element.id} key={element.id}> {element.firstName + ' ' + element.lastName} </option>
     })

@@ -4,13 +4,13 @@ import { alertActions } from './';
 import { history } from '../_helpers';
 
 export const userActions = {
-    login,
-    logout,
-    register,
-    editProfile,
-    getAll,
-    disconnect,
-    connect,
+    login, // login
+    logout, // logout
+    register, // register new user
+    editProfile, // change firstname and lastname
+    getAll, // get all users except me
+    disconnect, //disconnect partner with me
+    connect, // connect partner with me
     delete: _delete // I didn't implement this function on meetup website.
 };
 

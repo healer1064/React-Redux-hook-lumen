@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { userActions } from '../_actions';
 import { Header } from '../_components/Header';
 
@@ -14,16 +12,7 @@ function EditProfilePage() {
         lastName: user_info && user_info.lastName ? user_info.lastName : '',
         email: user_info && user_info.email ? user_info.email : ''
     });
-    // const [user, setUser] = useState({
-    //     firstName: '',
-    //     lastName: '',
-    //     email: ''
-    // });
-    // useEffect(() => {
-    //     user.firstName = user_info.firstName;
-    //     user.lastName = user_info.lastName;
-    //     user.email = user_info.email;
-    // });
+
     const [submitted, setSubmitted] = useState(false);
 
     const dispatch = useDispatch();
