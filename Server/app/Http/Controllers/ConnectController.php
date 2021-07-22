@@ -21,7 +21,8 @@ class ConnectController extends Controller
 
     public function disconnect($myId, $otherId) {
         try {
-            DB::statement('delete from connect where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $otherId, $otherId, $myId]);
+            // DB::statement('delete from connects where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $otherId, $otherId, $myId]);
+            Connect::where([['firstId', '=', $myId],['secondId', '=', $otherId]])->orWhere([['firstId', '=', $otherId],['secondId', '=', $myId]])->delete();
             return response()->json(['message' => 'success to disconnect'], 200);
 
         } catch (\Exception $e) {
@@ -32,7 +33,8 @@ class ConnectController extends Controller
 
     public function connect($myId, $otherId) {
         try {
-            DB::insert('insert into connect (firstId, secondId, created_at, updated_at) values (?, ?, NOW(), NOW())', [$myId, $otherId]);
+            // DB::insert('insert into connects (firstId, secondId, created_at, updated_at) values (?, ?, NOW(), NOW())', [$myId, $otherId]);
+            Connect::create(['firstId'=>$myId, 'secondId'=>$otherId]);
             return response()->json(['message' => 'success to connect'], 200);
 
         } catch (\Exception $e) {

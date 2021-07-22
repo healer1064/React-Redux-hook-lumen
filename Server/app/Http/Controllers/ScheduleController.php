@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use  App\Schedule;
+use  App\Connect;
 
 class ScheduleController extends Controller
 {
@@ -22,8 +23,8 @@ class ScheduleController extends Controller
     public function partnerSchedules($myId, $partnerId) {
         
         try {
-            $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
-            
+            // $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            $scheduleList = Schedule::where([['firstId', '=', $myId],['secondId', '=', $partnerId]])->orWhere([['firstId', '=', $partnerId],['secondId', '=', $myId]])->get();
             return response()->json(['scheduleList' => $scheduleList], 200);
 
         } catch (\Exception $e) {
@@ -35,16 +36,22 @@ class ScheduleController extends Controller
     public function allSchedules($myId) {
         
         try {
-            // $scheduleList = DB::select('select * from schedules where firstId = ? or secondId = ?', [$myId, $myId]);
-            // $scheduleList = Schedule::where('firstId', $myId)->orwhere('secondId', $myId)->get();
             $scheduleList1 = DB::select('select schedules.*, users.lastName as lastName, users.firstName as firstName from schedules join users on schedules.secondId = users.id where firstId = ?', [$myId]);
             $scheduleList2 = DB::select('select schedules.*, users.lastName as lastName, users.firstName as firstName from schedules join users on schedules.firstId = users.id where secondId = ?', [$myId]);
-            $scheduleList = $scheduleList1 + $scheduleList2;
+            $scheduleList3 = $scheduleList1 + $scheduleList2;
+            $scheduleList = [];
+            foreach($scheduleList3 as $schedule) {
+                $con1 = Connect::where('firstId', $schedule->firstId)->where('secondId', $schedule->secondId)->get();
+                $con2 = Connect::where('firstId', $schedule->secondId)->where('secondId', $schedule->firstId)->get();
+                if(count($con1) > 0 || count($con2) > 0) {
+                    array_push($scheduleList, $schedule);
+                }
+            }
             return response()->json(['scheduleList' => $scheduleList], 200);
 
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'schedules not found!'], 404);
+            return response()->json(['message' => $e], 404);
         }
     }
     
@@ -73,7 +80,8 @@ class ScheduleController extends Controller
             $myId = $request->input('myId');
             $partnerId = $request->input('partnerId');
 
-            $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            // $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            $scheduleList = Schedule::where([['firstId', '=', $myId],['secondId', '=', $partnerId]])->orWhere([['firstId', '=', $partnerId],['secondId', '=', $myId]])->get();
             
             //return successful response
             return response()->json(['scheduleList' => $scheduleList], 200);
@@ -95,7 +103,8 @@ class ScheduleController extends Controller
 
             $schedule->delete();
             
-            $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            // $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            $scheduleList = Schedule::where([['firstId', '=', $myId],['secondId', '=', $partnerId]])->orWhere([['firstId', '=', $partnerId],['secondId', '=', $myId]])->get();
             //return successful response
             return response()->json(['scheduleList' => $scheduleList], 200);
 
@@ -127,7 +136,8 @@ class ScheduleController extends Controller
 
             $schedule->save();
 
-            $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            // $scheduleList = DB::select('select * from schedules where (firstId = ? AND secondId = ?) or (firstId = ? AND secondId = ?)', [$myId, $partnerId, $partnerId, $myId]);
+            $scheduleList = Schedule::where([['firstId', '=', $myId],['secondId', '=', $partnerId]])->orWhere([['firstId', '=', $partnerId],['secondId', '=', $myId]])->get();
             
             //return successful response
             return response()->json(['scheduleList' => $scheduleList], 200);

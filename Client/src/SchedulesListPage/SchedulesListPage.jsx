@@ -13,11 +13,6 @@ function SchedulesListPage() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user.user_info);
     const dispatch = useDispatch();
-    
-    // if(partner === undefined || !partner.firstName) {
-    //     history.push('/home');
-    //     return;
-    // }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -94,9 +89,10 @@ function CreateScheduleModal(props) {
     const { title, description } = inputs;
     const { users } = props;
     
-    const options = users && users.items && users.items.map((element, key) => (
-        <option value={element.id} key={element.id}> {element.firstName + ' ' + element.lastName} </option>
-    ))
+    const options = users && users.items && users.items.map((element, key) => {
+        if(element.connect === 1)
+            return <option value={element.id} key={element.id}> {element.firstName + ' ' + element.lastName} </option>
+    })
 
     function handleChange(e) {
         const { name, value } = e.target;

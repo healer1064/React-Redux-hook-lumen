@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use  App\User;
+use  App\Connect;
 
 class UserController extends Controller
 {
@@ -67,8 +68,11 @@ class UserController extends Controller
      */
     public function allUsers($id)
     {
-        $usersWithoutMe = DB::table('users')->where('id', '<>', $id)->get();
-        $connectedUserIds = DB::select('SELECT secondId FROM connect WHERE firstId = ? UNION SELECT firstId FROM connect WHERE secondId = ?', [$id, $id]);
+        $usersWithoutMe = User::where('id', '<>', $id)->get();
+        // $connectedUserIds = DB::select('SELECT secondId FROM connects WHERE firstId = ? UNION SELECT firstId FROM connects WHERE secondId = ?', [$id, $id]);
+        $a = Connect::select('secondId')->where('firstId', $id);
+        $b = Connect::select('firstId')->where('secondId', $id);
+        $connectedUserIds = $a->union($b)->get();
         $users = [];
         $idArr = [];
         foreach($connectedUserIds as $connectedUserId) {
