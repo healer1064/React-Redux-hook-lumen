@@ -20,7 +20,9 @@ function SchedulesListPage() {
         }, 1000);
         // It use to get users and all schedules in every 1 second. 
         // So you can see updated informatin in every 1S.
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+        };
     }, [schedule]);
     
     const [createModalShow, setCreateModalShow] = useState(false);

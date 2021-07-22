@@ -19,7 +19,7 @@ function CallSchedulePage() {
     let partner = location.user;
     
     if(partner === undefined || !partner.firstName) {
-        history.push('/home');
+        history.push('/login');
         return;
     }
 
@@ -27,8 +27,10 @@ function CallSchedulePage() {
         const interval = setInterval(() => {
             dispatch(scheduleActions.getSchedules(user.id, partner.id));
         }, 1000);
-        return () => clearInterval(interval);
-      }, [schedule]);
+        return () => {
+            clearInterval(interval);
+        }
+    }, [schedule]);
 
     const [createModalShow, setCreateModalShow] = useState(false);
     const [updateModalShow, setUpdateModalShow] = useState(false);
@@ -49,19 +51,19 @@ function CallSchedulePage() {
             
             <button className="my-2 btn btn-outline-primary btn-block" onClick={() => setCreateModalShow(true)} >New Schedule</button>
             
-            {schedule.scheduleList &&
+            { schedule.scheduleList &&
                 <ul className="list-group">
-                    {schedule.scheduleList.map((schedule, index) => 
-                          <li key={schedule.id} className="list-group-item list-group-item-dark">
+                    {schedule.scheduleList.map((element, index) => 
+                          <li key={element.id} className="list-group-item list-group-item-dark">
                             <div className="row">
-                                <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">{new Date(schedule.meetTime).toLocaleString()}</div>
+                                <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">{new Date(element.meetTime).toLocaleString()}</div>
                                 <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">
-                                    <p><b>{schedule.title}</b></p>
-                                    <p>{schedule.description}</p>
+                                    <p><b>{element.title}</b></p>
+                                    <p>{element.description}</p>
                                 </div>
                                 <div className="col-lg-4 col-sm-4 col-md-4 align-self-center">
-                                    <button className="btn btn-outline-primary btn-block" onClick={ () => handleEditSchedule(schedule) }>Edit</button>
-                                    <button className="btn btn-outline-primary btn-block" onClick={ () => handleCancelSchedule(schedule.id) }>Cancel</button>
+                                    <button className="btn btn-outline-primary btn-block" onClick={ () => handleEditSchedule(element) }>Edit</button>
+                                    <button className="btn btn-outline-primary btn-block" onClick={ () => handleCancelSchedule(element.id) }>Cancel</button>
                                 </div>
                             </div>
                         </li>

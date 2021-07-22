@@ -6,7 +6,7 @@ export const scheduleActions = {
     getAllSchedules, // getting all schedules between I and all partner.
     saveSchedule, // creating one schedules between I and selected partner.
     cancelSchedule, // deleting one schedules between I and selected partner.
-    updateSchedule // updating one schedules between I and selected partner.
+    updateSchedule, // updating one schedules between I and selected partner.
 };
 
 function getSchedules(myId, partnerId) {

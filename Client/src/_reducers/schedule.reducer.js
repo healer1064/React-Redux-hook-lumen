@@ -4,7 +4,7 @@ export function schedule(state = {}, action) {
     switch (action.type) {
         case scheduleConstants.GETSCHEDULE_SUCCESS:
             return {
-                scheduleList: action.scheduleList.scheduleList
+                scheduleList: action.scheduleList.scheduleList,
             };
         case scheduleConstants.GETSCHEDULE_FAILURE:
             return {
