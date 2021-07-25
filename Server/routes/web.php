@@ -10,6 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+
+/*
+cors middleware is needed to fix cors error This is happened oftenly in Reat+Laravel project.
+*/
 $router->group(['middleware' => 'cors'], function() use ($router)
 {
     $router->get('/', function () use ($router) {
