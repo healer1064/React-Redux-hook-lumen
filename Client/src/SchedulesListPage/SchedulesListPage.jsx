@@ -5,7 +5,16 @@ import DatePicker from "react-datepicker";
 import { scheduleActions, userActions } from '../_actions';
 import { Header } from '../_components/Header';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   SchedulesListPage component
+|   In this page, user can register.
+------------------------------------------------------------------------------*/
+
 function SchedulesListPage() {
+    // schedule has scheduleList related to logined user.
+    // users has all users except for logined user.
+    // user has logined user's infomation.
     const schedule = useSelector(state=> state.schedule);
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user.user_info);

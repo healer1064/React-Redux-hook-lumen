@@ -5,7 +5,15 @@ import { userActions } from '../_actions';
 import { Header } from '../_components/Header';
 import { history } from '../_helpers';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   UsersListPage component
+|   In this page, all users except for logined user are showed.
+------------------------------------------------------------------------------*/
+
 function UsersListPage() {
+    // users : users list.
+    // user : logined user.
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user.user_info);
     const dispatch = useDispatch();

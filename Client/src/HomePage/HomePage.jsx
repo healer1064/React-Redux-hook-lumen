@@ -2,6 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Header } from '../_components/Header';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   HomePage component
+------------------------------------------------------------------------------*/
+
 function HomePage() {
     const user = useSelector(state => state.authentication.user.user_info);
 

@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   RegisterPage component
+|   In this page, user can register.
+------------------------------------------------------------------------------*/
+
 function RegisterPage() {
     const [user, setUser] = useState({
         firstName: '',

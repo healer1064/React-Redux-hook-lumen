@@ -8,9 +8,16 @@ import { scheduleActions } from '../_actions';
 import { Header } from '../_components/Header';
 import { history } from '../_helpers';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   CallSchedulePage component
+|   It shows all schedules between logined user and one partner
+------------------------------------------------------------------------------*/
 
 function CallSchedulePage() {
+    // schedule list between logined user and partner.
     const schedule = useSelector(state=> state.schedule);
+    // logined user's information
     const user = useSelector(state => state.authentication.user.user_info);
     const dispatch = useDispatch();
     
@@ -18,11 +25,13 @@ function CallSchedulePage() {
     let location = useLocation();
     let partner = location.user;
     
+    // If irregular access, return to login page.
     if(partner === undefined || !partner.firstName) {
         history.push('/login');
         return;
     }
 
+    //Getting schedules between logined user and every 1 second for show updated data.
     useEffect(() => {
         const interval = setInterval(() => {
             dispatch(scheduleActions.getSchedules(user.id, partner.id));
@@ -32,6 +41,9 @@ function CallSchedulePage() {
         }
     }, [schedule]);
 
+    // createModalShow and updateModalShow are the flag(true or false).
+    // if createModalShow is true, New modal is opened.
+    // tempSchedule is used to send schedule to update Modal
     const [createModalShow, setCreateModalShow] = useState(false);
     const [updateModalShow, setUpdateModalShow] = useState(false);
     const [tempSchedule, setTempSchedule] = useState({});

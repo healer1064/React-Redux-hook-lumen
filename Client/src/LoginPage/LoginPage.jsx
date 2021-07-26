@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   LoginPage component
+|   In this page, user can login.
+------------------------------------------------------------------------------*/
+
 function LoginPage() {
     const [inputs, setInputs] = useState({
         email: '',
