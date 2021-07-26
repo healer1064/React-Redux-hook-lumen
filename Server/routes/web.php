@@ -23,16 +23,16 @@ $router->group(['middleware' => 'cors'], function() use ($router)
 
     // API route group
     $router->group(['prefix' => 'api'], function () use ($router) {
-        // Matches "/api/register
+        // Matches "/api/register. Create New user.
         $router->post('register', 'AuthController@register');
 
-        // Matches "/api/login
+        // Matches "/api/login. Verifiy if user is registered and correct password
         $router->post('login', 'AuthController@login');
 
-        // Matches "/api/users
+        // Matches "/api/users. Get all users except for me.
         $router->get('userList/{id}', 'UserController@allUsers');
 
-        // Matches "/api/editProfile"
+        // Matches "/api/editProfile". Update user's firstname and lastname.
         $router->put('editProfile', 'UserController@editProfile');
 
         //disconnect other from me and send users' data
@@ -47,7 +47,7 @@ $router->group(['middleware' => 'cors'], function() use ($router)
         //get all schedules between I and others
         $router->get('allScheduleList/{myId}', 'ScheduleController@allSchedules');
 
-        // Matches "/api/saveSchedule
+        //create a schedule between I and other
         $router->post('schedule', 'ScheduleController@saveSchedule');
 
         //cancel schedule by id

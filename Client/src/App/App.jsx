@@ -13,6 +13,12 @@ import { SchedulesListPage } from '../SchedulesListPage';
 import { EditProfilePage } from '../EditProfilePage';
 import { CallSchedulePage } from '../CallSchedulePage';
 
+/*--------------------------------------------------------------------
+|   Author : Zilya
+|   App is entry point of front pages.
+|   Route is defined here.
+|   Whenever location changes, displayed alert will be disappeared.
+---------------------------------------------------------------------*/
 function App() {
     const alert = useSelector(state => state.alert);
     const dispatch = useDispatch();

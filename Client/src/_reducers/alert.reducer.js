@@ -1,5 +1,10 @@
 import { alertConstants } from '../_constants';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   alert reducer store data related to alert.
+------------------------------------------------------------------------------*/
+
 export function alert(state = {}, action) {
     switch (action.type) {
         case alertConstants.SUCCESS:

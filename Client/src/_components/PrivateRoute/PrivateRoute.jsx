@@ -1,6 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   PrivateRoute component is used to check users' authentication
+|   localStorage.getItem('user') is used to check users' authentication
+|   If user is logined, localStorage has user Item.
+|   If user is not logined, It always show login page.
+------------------------------------------------------------------------------*/
+
 function PrivateRoute({ component: Component, roles, ...rest }) {
     return (
         <Route {...rest} render={props => {

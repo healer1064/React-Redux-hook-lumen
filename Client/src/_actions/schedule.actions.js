@@ -1,12 +1,20 @@
 import { scheduleConstants } from '../_constants';
 import { scheduleService } from '../_services';
-
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   All actions related schedule are here.
+|   getSchedules : getting all schedules between I and selected partner.
+|   getAllSchedules : getting all schedules between I and all partner.
+|   saveSchedule : creating one schedules between I and selected partner.
+|   cancelSchedule : deleting one schedules between I and selected partner.
+|   updateSchedule : updating one schedules between I and selected partner.
+------------------------------------------------------------------------------*/
 export const scheduleActions = {
-    getSchedules, // getting all schedules between I and selected partner.
-    getAllSchedules, // getting all schedules between I and all partner.
-    saveSchedule, // creating one schedules between I and selected partner.
-    cancelSchedule, // deleting one schedules between I and selected partner.
-    updateSchedule, // updating one schedules between I and selected partner.
+    getSchedules,
+    getAllSchedules,
+    saveSchedule,
+    cancelSchedule, 
+    updateSchedule, 
 };
 
 function getSchedules(myId, partnerId) {
