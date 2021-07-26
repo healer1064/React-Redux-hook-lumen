@@ -1,6 +1,11 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   Functions related to api are here.
+------------------------------------------------------------------------------*/
+
 export const userService = {
     login,
     logout,

@@ -1,6 +1,11 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   Functions related to api are here.
+------------------------------------------------------------------------------*/
+
 export const scheduleService = {
     getSchedules,
     getAllSchedules,
@@ -26,6 +31,7 @@ function getAllSchedules(myId) {
 }
 
 function saveSchedules(newSchedule) {
+    //In headers, Content-Type must be set like following because we send JSON data.
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
@@ -52,6 +58,7 @@ function updateSchedule(schedule) {
     return fetch(`${config.apiUrl}/api/schedule/${schedule.id}`, requestOptions).then(handleResponse);
 }
 
+//All methods here call handleResponse(). This check whether response is 401
 function handleResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);

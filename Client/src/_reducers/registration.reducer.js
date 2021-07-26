@@ -1,5 +1,10 @@
 import { userConstants } from '../_constants';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   connects reducer store only status of api response. That means there is no special information.
+------------------------------------------------------------------------------*/
+
 export function registration(state = {}, action) {
     switch (action.type) {
         case userConstants.REGISTER_REQUEST:

@@ -1,5 +1,10 @@
 import { userConstants } from '../_constants';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   users reducer store data related to users.
+------------------------------------------------------------------------------*/
+
 export function users(state = {}, action) {
     switch (action.type) {
         case userConstants.GETALL_SUCCESS:

@@ -6,6 +6,7 @@ const initialState = user ? { loggedIn: true, user } : {};
 /*----------------------------------------------------------------------------
 |   Author : Zilya
 |   authentication reducer store data related to user.
+|   User's information is saved in localStorage.
 ------------------------------------------------------------------------------*/
 
 export function authentication(state = initialState, action) {

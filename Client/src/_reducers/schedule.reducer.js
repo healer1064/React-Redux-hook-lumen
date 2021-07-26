@@ -1,5 +1,10 @@
 import { scheduleConstants } from '../_constants';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   schedule reducer store data related to schedules.
+------------------------------------------------------------------------------*/
+
 export function schedule(state = {}, action) {
     switch (action.type) {
         case scheduleConstants.GETSCHEDULE_SUCCESS:

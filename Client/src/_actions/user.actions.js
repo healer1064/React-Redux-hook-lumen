@@ -6,7 +6,7 @@ import { history } from '../_helpers';
 /*----------------------------------------------------------------------------
 |   Author : Zilya
 |   All actions related user are here.
-|   login, // login
+|   login, // First call service.login function. Then according to re
 |   logout, // logout
 |   register, // register new user
 |   editProfile, // change firstname and lastname
@@ -17,14 +17,14 @@ import { history } from '../_helpers';
 ------------------------------------------------------------------------------*/
 
 export const userActions = {
-    login, // login
-    logout, // logout
-    register, // register new user
-    editProfile, // change firstname and lastname
-    getAll, // get all users except me
-    disconnect, //disconnect partner with me
-    connect, // connect partner with me
-    delete: _delete // I didn't implement this function on meetup website.
+    login,
+    logout,
+    register,
+    editProfile,
+    getAll,
+    disconnect, 
+    connect, 
+    delete: _delete 
 };
 
 function login(email, password, from) {

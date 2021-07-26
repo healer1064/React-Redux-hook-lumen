@@ -1,5 +1,10 @@
 import { userConstants } from '../_constants';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   connects reducer store only status of api response. That means there is no special information.
+------------------------------------------------------------------------------*/
+
 export function connects(state = {}, action) {
     switch (action.type) {
         case userConstants.DISCONNECT_REQUEST: 

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/*----------------------------------------------------------------------------
+|   Author : Zilya
+|   Header component is navbar commenly used in several components.
+------------------------------------------------------------------------------*/
+
 function Header() {
     return (
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
