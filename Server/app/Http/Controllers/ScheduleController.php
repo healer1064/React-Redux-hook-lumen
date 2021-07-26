@@ -8,6 +8,22 @@ use Illuminate\Support\Facades\DB;
 use  App\Schedule;
 use  App\Connect;
 
+/*
+Author : Zilya
+ScheduleController has functions related to schedule.
+
+- partnerSchedules : Get All schedules between two users.
+                    input request has 2 ids of user table.
+                    Find all schedules which firstId and secondId is myId and partnerId or partnerId and myId.
+- allSchedules : Get all schedules connected user who send request.
+                    Except for schedules with disconnected users.
+- saveSchedule : create schedule. request has info of schedule.
+                    Return all schedules between saver and partner.
+- cancelSchedule : delete schedule. request has id of schedule in table. 
+                    Return all schedules between canceler and partner.
+- updateSchedule : update existed schedule. request has id of schedule in table and updated schedule.
+*/
+
 class ScheduleController extends Controller
 {
      /**

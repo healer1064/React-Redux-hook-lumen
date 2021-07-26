@@ -11,6 +11,15 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 //this is new
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/*
+Author : Zilya
+User Model is to manage users in this site.
+firstName : users' firstname.
+lastName : users' lastname.
+email : users' email.
+password : users' password. it will be crypted.
+*/
+
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject 
 {
     use Authenticatable, Authorizable;

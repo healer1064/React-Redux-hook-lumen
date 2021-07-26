@@ -11,6 +11,13 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 //this is new
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/*
+Author : Zilya
+Connect Model is to manage connections between two people.
+firstId : Id of user who press connect btn.
+SecondId : Id of user who is offered connect from first user.
+*/
+
 class Connect extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject 
 {
     use Authenticatable, Authorizable;

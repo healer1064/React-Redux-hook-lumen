@@ -7,6 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use  App\Connect;
 
+/*
+Author : Zilya
+ConnectController has two functions related to connect operation
+
+- disconnect: input value is Two users id in User table.
+                First find connect which firstId and secondId is myId and otherId.
+                Then delete.
+- connect: This is opposite of disconnect.
+                Save myId as firstId and otherId as secondId
+In both function, if failed, return 'failed' message.
+*/
+
 class ConnectController extends Controller
 {
      /**

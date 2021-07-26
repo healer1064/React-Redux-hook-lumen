@@ -12,6 +12,7 @@
 */
 
 /*
+Author : Zilya
 cors middleware is needed to fix cors error This is happened oftenly in Reat+Laravel project.
 */
 $router->group(['middleware' => 'cors'], function() use ($router)

@@ -6,6 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use  App\User;
 
+/*
+Author : Zilya
+AuthController has two functions related to authentication
+
+- register: create new user with firstname, lastname, email and password.
+            password will be hashed and saved.
+            If create successful, return new users' info and success message.
+            If failed, return failed message.
+- login: find user with requested email and password.
+            if success in authorization, call returnWithToken function of Controller. There info of user and token will be returned.
+            if no match, 'unauthorized' message will be returned.
+*/
 class AuthController extends Controller
 {
     /**

@@ -11,6 +11,15 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 //this is new
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/*
+Author : Zilya
+Schedule Model is to manage schedules between two people.
+firstId : Id of user who press connect btn.
+SecondId : Id of user who is offered connect from first user.
+meetingTime : Time you plan to meet.
+title : title of schedule plan.
+description : descrition of schedule plan.
+*/
 class Schedule extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject 
 {
     use Authenticatable, Authorizable;

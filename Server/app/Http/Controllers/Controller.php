@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
+/*
+Author : Zilya
+ConnectController has one function.
+
+-respondWithToken : It will return infomations of user and token.
+                    token, token_type, expire_time, user_info
+*/
+
 class Controller extends BaseController
 {
     protected function respondWithToken($token)

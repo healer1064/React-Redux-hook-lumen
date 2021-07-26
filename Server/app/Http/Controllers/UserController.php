@@ -8,6 +8,24 @@ use Illuminate\Support\Facades\DB;
 use  App\User;
 use  App\Connect;
 
+/*
+Author : Zilya
+UserController has functions related to user management.
+
+- profile : return requested users' information.
+- editProfile : edit requested users' information. 
+                Request has updated firstname and updated lastname of user.
+                change firstname and lastname of requested user and return information of user and token.
+- saveSchedule : create schedule. request has info of schedule.
+                Return all schedules between saver and partner.
+- allUsers : get all users in this site.
+                Return all users information in user table include connection status with requested user.
+                Search connect table and set connect of response 
+                    1 if user connected,
+                    0 if user disconneted
+- updateSchedule : update existed schedule. request has id of schedule in table and updated schedule.
+*/
+
 class UserController extends Controller
 {
      /**
@@ -91,25 +109,6 @@ class UserController extends Controller
         return response()->json(['users' => $users], 200);
         
         // return response()->json(['users' =>  User::all()], 200);
-
-    }
-
-    /**
-     * Get one user.
-     *
-     * @return Response
-     */
-    public function singleUser($id)
-    {
-        try {
-            $user = User::findOrFail($id);
-
-            return response()->json(['user' => $user], 200);
-
-        } catch (\Exception $e) {
-
-            return response()->json(['message' => 'user not found!'], 404);
-        }
 
     }
 
